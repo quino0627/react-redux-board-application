@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 }
 
-app.get("/hello", (req, res) => {
+app.get("/api/greeting", (req, res) => {
   return res.send("Hello DBASSI");
 });
 
