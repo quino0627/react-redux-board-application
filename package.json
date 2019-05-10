@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "server": "nodemon start.js",
+    "server": "nodemon index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
