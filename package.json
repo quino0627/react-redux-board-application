@@ -6,9 +6,10 @@
   "author": "quino0627 <quino0627@korea.ac.kr>",
   "license": "MIT",
   "scripts": {
+    "start": "node index.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "server": "nodemon index.js",
-    "client": "npm start --prefix client",
+    "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
