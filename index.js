@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/api/greeting", (req, res) => {
-  return res.send("Hello DBASSI");
+  return res.send("LOVE U");
 });
 
 app.get("/", (req, res) => {
