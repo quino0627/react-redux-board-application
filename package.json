@@ -6,22 +6,32 @@
   "author": "quino0627 <quino0627@korea.ac.kr>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
+    "start": "node start.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "server": "nodemon index.js",
+    "server": "nodemon start.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.5",
+    "path": "^0.12.7",
+    "routes": "^2.1.0"
+  },
+  "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
-    "body-parser": "^1.19.0",
-    "concurrently": "^4.1.0",
-    "express": "^4.16.4",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
     "nodemon": "^1.19.0"
   }
 }
