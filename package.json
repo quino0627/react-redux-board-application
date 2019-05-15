@@ -26,12 +26,11 @@
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
     "path": "^0.12.7",
-    "routes": "^2.1.0"
-  },
-  "devDependencies": {
+    "routes": "^2.1.0",
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.4.4",
     "nodemon": "^1.19.0"
-  }
+  },
+  "devDependencies": {}
 }
