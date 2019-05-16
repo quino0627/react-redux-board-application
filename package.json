@@ -13,6 +13,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -23,14 +26,17 @@
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
+    "immutable": "^4.0.0-rc.12",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
+    "nodemon": "^1.19.0",
     "path": "^0.12.7",
-    "routes": "^2.1.0",
-    "@babel/core": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/register": "^7.4.4",
-    "nodemon": "^1.19.0"
+    "react-redux": "^7.0.3",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1",
+    "redux-actions": "^2.6.5",
+    "redux-pender": "^2.0.12",
+    "routes": "^2.1.0"
   },
   "devDependencies": {}
 }
