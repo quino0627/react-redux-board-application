@@ -28,7 +28,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
-app.get('*', (req, res) => res.sendFile(path.resolve('client/build', 'index.html'));
+//I added to fix react router cannot GET error...
+app.get("*", (req, res) => {
+  return res.sendFile(path.resolve("client/build", "index.html"));
+});
 
 app.listen(PORT, function() {
   console.log(

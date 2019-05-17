@@ -1,0 +1,13 @@
+@import "../../../styles/utils.scss";
+
+.editor-template {
+  .panes {
+    height: calc(100vh - 4rem);
+    display: flex;
+    background: $oc-gray-1; //임시
+    .pane {
+      display: flex;
+      flex: 1; //temp
+    }
+  }
+}
