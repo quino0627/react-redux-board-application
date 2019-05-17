@@ -7,9 +7,17 @@ const cx = classNames.bind(styles);
 
 class EditorTemplate extends Component {
   render() {
-    const { Headers, editor, preivew } = this.props;
+    const { header, editor, preview } = this.props;
 
-    return <div className={cx("editor-template'")}>asdf</div>;
+    return (
+      <div className={cx("editor-template'")}>
+        {header}
+        <div className={cx("panes")}>
+          <div className={cx("pane", "editor")}>{editor}</div>
+          <div className={cx("pane", "preview")}>{preview}</div>
+        </div>
+      </div>
+    );
   }
 }
 

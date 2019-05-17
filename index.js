@@ -28,6 +28,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build", "index.html"));
 });
 
+app.get('*', (req, res) => res.sendFile(path.resolve('client/build', 'index.html'));
+
 app.listen(PORT, function() {
   console.log(
     "Express server listening on port %d in %s mode",
