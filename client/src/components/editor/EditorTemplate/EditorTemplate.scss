@@ -4,10 +4,18 @@
   .panes {
     height: calc(100vh - 4rem);
     display: flex;
-    background: $oc-gray-1; //임시
+    position: relative;
     .pane {
       display: flex;
-      flex: 1; //temp
+      min-width: 0;
+      overflow: auto;
+    }
+    .separator {
+      width: 1rem;
+      height: 100%;
+      position: absolute;
+      transform: translate(-50%);
+      cursor: col-resize;
     }
   }
 }
