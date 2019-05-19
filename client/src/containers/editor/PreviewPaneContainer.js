@@ -10,6 +10,6 @@ class PreviewPaneContainer extends Component {
 }
 
 export default connect(state => ({
-  title: state.editor.title,
-  markdown: state.editor.markdown
+  title: state.editor.get("title"),
+  markdown: state.editor.get("markdown")
 }))(PreviewPaneContainer);
