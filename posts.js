@@ -57,6 +57,7 @@ router.get("/api/posts/:id", async (req, res) => {
   try {
     const conn = await pool.getConnection();
     try {
+      const { id } = req.params;
       const sql = conn.format("SELECT * FROM `post` WHERE post_no=?", [id]);
       const [result] = await conn.query(sql);
       conn.release();
