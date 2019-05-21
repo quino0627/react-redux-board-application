@@ -31,7 +31,8 @@ exports.readPosts = async (req, res) => {
     const postCount = await processQuery(
       "SELECT count (distinct `post_no`) as cnt from `post` "
     );
-    const pageCount = Math.ceil(postCount[0].cnt / 10);
+
+    const pageCount = Math.ceil(postCount[0].cnt / 5);
     res.set("Last-Page", pageCount);
 
     res.json(result);
@@ -98,8 +99,8 @@ exports.updatePost = async (req, res) => {
       .slice(0, 19)
       .replace("T", " ");
     await processQuery(
-      "UPDATE `post` SET post_title=?, post_content=?, updated_at=? WHERE post_no=? ",
-      [post_title, post_content, updated_at, id]
+      "UPDATE `post` SET post_title=?, post_content=? WHERE post_no=? ",
+      [post_title, post_content, id]
     );
     res.send("Successfully uploaded!");
   } catch (e) {

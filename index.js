@@ -6,11 +6,15 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const path = require("path");
 const router = require("./router");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(cookieParser());
+
 app.use(morgan("dev"));
+
 app.use(
   bodyParser.urlencoded({
     extended: true
