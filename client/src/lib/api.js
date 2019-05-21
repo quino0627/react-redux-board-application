@@ -17,3 +17,8 @@ export const getPost = id => {
 
 export const getPostList = ({ tag, page }) =>
   axios.get(`/api/posts/?${queryString.stringify({ tag, page })}`);
+
+export const editPost = ({ id, title, body, tags }) =>
+  axios.patch(`/api/posts/${id}`, { post_title: title, post_content: body });
+
+export const removePost = id => axios.delete(`/api/posts/${id}`);

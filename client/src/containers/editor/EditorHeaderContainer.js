@@ -11,11 +11,13 @@ class EditorHeaderContainer extends Component {
   componentDidMount() {
     const { EditorActions, location } = this.props;
     EditorActions.initialize(); // 에디터를 초기화 합니다.
-
+    console.log(this.props);
     // 쿼리 파싱
     const { id } = queryString.parse(location.search);
+    console.log(id);
     if (id) {
       // id 가 존재하는 경우 포스트 불러오기
+      console.log("LETS GET DATA!");
       EditorActions.getPost(id);
     }
   }

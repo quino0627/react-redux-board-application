@@ -6,7 +6,7 @@ import Button from "../Button";
 
 const cx = classNames.bind(styles);
 
-const Header = () => {
+const Header = ({ postId, onRemove }) => {
   return (
     <header className={cx("header")}>
       <div className={cx("header-content")}>
@@ -14,6 +14,14 @@ const Header = () => {
           <Link to="/">reactblog</Link>
         </div>
         <div className={cx("right")}>
+          {postId && [
+            <Button key="edit" theme="outline" to={`/editor?id=${postId}`}>
+              수정
+            </Button>,
+            <Button key="remove" theme="outline" onClick={onRemove}>
+              삭제
+            </Button>
+          ]}
           <Button theme="outline" to="./editor">
             새 포스트
           </Button>
