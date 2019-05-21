@@ -1,8 +1,12 @@
 import axios from "axios";
 
-export const writePost = ({ title, body, tags }) => {
+export const writePost = ({ title, body }) => {
   console.log("ASDF");
-  return axios.post("/api/posts", { title, body, tags });
+  return axios.post("/api/posts", {
+    post_title: title,
+    post_content: body,
+    board_no: 3
+  });
 };
 
 export const getPost = id => {

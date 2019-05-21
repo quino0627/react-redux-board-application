@@ -25,6 +25,9 @@ export default handleActions(
         const { data: post } = action.payload;
         console.log("IN HANDLEACTION, ", post[0]);
         return state.set("post", post[0]);
+      },
+      onFailure: (state, action, error) => {
+        console.log(error);
       }
     })
   },
