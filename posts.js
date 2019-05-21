@@ -12,7 +12,6 @@ router.post("/api/posts", async (req, res) => {
     try {
       let { post_title, post_content, board_no, user_id } = req.body;
       //temp
-      board_no = 1;
       user_id = 1;
       const created_at = moment()
         .toISOString()
