@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import EditorHeader from "components/editor/EditorHeader";
+import EditorHeader from "../../components/editor/EditorHeader";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
 
-import * as editorActions from "store/modules/editor";
+import * as editorActions from "../../store/modules/editor";
 
 class EditorHeaderContainer extends Component {
   componentDidMount() {
@@ -26,6 +26,7 @@ class EditorHeaderContainer extends Component {
   };
 
   handleSubmit = async () => {
+    console.log("handleSubmit activated and ", this.props);
     const {
       title,
       markdown,
@@ -41,19 +42,23 @@ class EditorHeaderContainer extends Component {
       tags:
         tags === "" ? [] : [...new Set(tags.split(",").map(tag => tag.trim()))]
     };
+    console.log("BEFORE TRY");
     try {
-      // id 가 존재하는 경우 editPost 호출
+      //  id 가 존재하는 경우 editPost 호출
       const { id } = queryString.parse(location.search);
       if (id) {
+        console.log("maybe here?");
         await EditorActions.editPost({ id, ...post });
         history.push(`/post/${id}`);
         return;
       }
       await EditorActions.writePost(post);
+      console.log("AFTER writePOST");
       // 페이지를 이동시킵니다. 주의: postId 를 상단에서 레퍼런스를 만들지 않고
       // 이 자리에서 this.props.postId 를 조회해주어야합니다. (현재의 값을 불러오기 위함)
       history.push(`/post/${this.props.postId}`);
     } catch (e) {
+      console.log("ASDFASDF");
       console.log(e);
     }
   };
