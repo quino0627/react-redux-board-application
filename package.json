@@ -28,6 +28,7 @@
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "cross-env": "^5.2.0",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "express-rate-limit": "^3.5.1",
     "express-session": "^1.16.1",
@@ -45,7 +46,8 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-pender": "^2.0.12",
-    "routes": "^2.1.0"
+    "routes": "^2.1.0",
+    "util.promisify": "^1.0.0"
   },
   "devDependencies": {}
 }

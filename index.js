@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const router = require("./router");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,6 +22,14 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
+app.use(
+  session({
+    secret: "!@#$DBASSIGNMENT@#$%",
+    resave: false,
+    saveUninitialized: true
+  })
+);
 
 if (process.env.NODE_ENV === "production") {
   console.log("PRODUCTION");

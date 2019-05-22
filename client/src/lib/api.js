@@ -22,3 +22,15 @@ export const editPost = ({ id, title, body, tags }) =>
   axios.patch(`/api/posts/${id}`, { post_title: title, post_content: body });
 
 export const removePost = id => axios.delete(`/api/posts/${id}`);
+
+export const login = (username, password) => {
+  console.log(username, password);
+  return axios.post("/api/auth/login", {
+    username: username,
+    password: password
+  });
+  // console.log(result);
+};
+
+export const checkLogin = () => axios.get("/api/auth/check");
+export const logout = () => axios.post("/api/auth/logout");
