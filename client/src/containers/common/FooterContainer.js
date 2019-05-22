@@ -19,11 +19,24 @@ class FooterContainer extends Component {
     BaseActions.showModal("login");
     BaseActions.initializeLoginModal();
   };
+
+  handleRegisterClick = async () => {
+    const { BaseActions } = this.props;
+
+    BaseActions.showModal("register");
+    BaseActions.initializeRegisterModal();
+  };
   render() {
-    const { handleLoginClick } = this;
+    const { handleLoginClick, handleRegisterClick } = this;
     const { logged } = this.props;
 
-    return <Footer onLoginClick={handleLoginClick} logged={logged} />;
+    return (
+      <Footer
+        onLoginClick={handleLoginClick}
+        onRegisterClick={handleRegisterClick}
+        logged={logged}
+      />
+    );
   }
 }
 

@@ -14,6 +14,9 @@ const CHANGE_USERNAME_INPUT = "base/CHANGE_USERNAME_INPUT";
 const INITIALIZE_LOGIN_MODAL = "base/INITIALIZE_LOGIN_MODAL";
 const TEMP_LOGIN = "base/TEMP_LOGIN";
 
+const REGISTER = "base/REGISTER";
+const INITIALIZE_REGISTER_MODAL = "base/INITIALIZE_REGISTER_MODAL";
+
 //action creators
 export const showModal = createAction(SHOW_MODAL);
 export const hideModal = createAction(HIDE_MODAL);
@@ -24,16 +27,25 @@ export const changePasswordInput = createAction(CHANGE_PASSWORD_INPUT);
 export const changeUsernameInput = createAction(CHANGE_USERNAME_INPUT);
 export const initializeLoginModal = createAction(INITIALIZE_LOGIN_MODAL);
 export const tempLogin = createAction(TEMP_LOGIN);
+
+export const register = createAction(REGISTER, api.register);
+export const initializeRegisterModal = createAction(INITIALIZE_REGISTER_MODAL);
 //initial state
 // initial state
 const initialState = Map({
   // 모달의 가시성 상태
   modal: Map({
     remove: false,
-    login: false
+    login: false,
+    register: false
   }),
   // 로그인 모달 상태
   loginModal: Map({
+    password: "",
+    username: "",
+    error: false
+  }),
+  registerModal: Map({
     password: "",
     username: "",
     error: false
@@ -82,6 +94,30 @@ export default handleActions(
         console.log("CHECKLOGIN");
         const { logged } = action.payload.data;
         return state.set("logged", logged);
+      }
+    }),
+    ...pender({
+      type: REGISTER,
+      onSuccess: (state, action) => {
+        // 로그인 성공 시
+        console.log("ONSUCCESS");
+        // return state.set("logged", true);
+      },
+      onFailure: (state, action) => {
+        console.log("FAILED");
+        // 에러 발생 시
+        return state
+          .setIn(["registerModal", "error"], true)
+          .setIn(["registerModal", "password"], "")
+          .setIn(["registerModal", "username"], "");
+      },
+      onError: (state, action) => {
+        console.log("FAILED");
+        // 에러 발생 시
+        return state
+          .setIn(["registerModal", "error"], true)
+          .setIn(["registerModal", "password"], "")
+          .setIn(["registerModal", "username"], "");
       }
     }),
     [CHANGE_PASSWORD_INPUT]: (state, action) => {

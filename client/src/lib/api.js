@@ -34,3 +34,9 @@ export const login = (username, password) => {
 
 export const checkLogin = () => axios.get("/api/auth/check");
 export const logout = () => axios.post("/api/auth/logout");
+
+export const register = (username, password) =>
+  axios.post("api/auth/register", {
+    username: username,
+    password: password
+  });

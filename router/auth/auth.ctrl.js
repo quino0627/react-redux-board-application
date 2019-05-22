@@ -85,12 +85,21 @@ exports.register = async (req, res) => {
       "sha512"
     );
     const data = [username, pwd.toString("base64"), salt.toString("base64")];
-    console.log(data);
-    await processQuery(
-      "INSERT INTO `user` (username, pwd, pwd_help) VALUES (?,?,?)",
-      data
+
+    const duplicated = await processQuery(
+      "SELECT * FROM `user` WHERE `username`= ?",
+      username
     );
-    return res.json({ sucess: true });
+    console.log(duplicated);
+    if (duplicated[0].username) {
+      return res.status(401).json({ success: false });
+    } else {
+      await processQuery(
+        "INSERT INTO `user` (username, pwd, pwd_help) VALUES (?,?,?)",
+        data
+      );
+      return res.json({ sucess: true });
+    }
   } catch (e) {
     throw e;
   }

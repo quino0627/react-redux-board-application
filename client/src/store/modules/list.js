@@ -26,11 +26,7 @@ export default handleActions(
       type: GET_POST_LIST,
       onSuccess: (state, action) => {
         const { data: posts } = action.payload;
-        console.log(action.payload);
-        console.log(posts);
-        console.log(fromJS(posts));
         const lastPage = action.payload.headers["last-page"];
-        console.log(parseInt(lastPage, 10));
 
         return state
           .set("posts", posts)
