@@ -1,12 +1,15 @@
 import axios from "axios";
 import queryString from "query-string";
 
-export const writePost = ({ title, body }) => {
-  console.log("ASDF");
+export const writePost = async ({ title, body }) => {
+  const loggedInfo = await checkLogin();
+  console.log("AAAAAAAAAAAAAAA");
+  console.log(loggedInfo.data.logged.username);
   return axios.post("/api/posts", {
     post_title: title,
     post_content: body,
-    board_no: 3
+    board_no: 3,
+    writer: loggedInfo.data.logged.username
   });
 };
 

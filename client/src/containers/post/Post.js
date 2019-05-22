@@ -30,12 +30,23 @@ class Post extends Component {
 
     if (loading) return null;
     console.log("THIS IS POST CONTAINER");
-    let tempPost = post;
-    const { post_title, post_no, post_content, created_at, tags } = post;
+    const {
+      post_title,
+      post_no,
+      post_content,
+      created_at,
+      writer,
+      tags
+    } = post;
 
     return (
       <div>
-        <PostInfo title={post_title} publishedDate={created_at} tags={tags} />
+        <PostInfo
+          title={post_title}
+          publishedDate={created_at}
+          tags={tags}
+          writer={writer}
+        />
         <PostBody body={post_content} />
       </div>
     );

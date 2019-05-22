@@ -6,7 +6,7 @@ import momnet from "moment";
 
 const cx = classNames.bind(styles);
 
-const PostInfo = ({ publishedDate, title, tags }) => {
+const PostInfo = ({ publishedDate, title, writer, tags }) => {
   console.log(publishedDate);
   return (
     <div className={cx("post-info")}>
@@ -21,6 +21,7 @@ const PostInfo = ({ publishedDate, title, tags }) => {
             ))}
         </div>
         <div className={cx("date")}>{publishedDate}</div>
+        <div className={cx("writer")}>{writer}</div>
       </div>
     </div>
   );

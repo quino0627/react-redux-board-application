@@ -69,14 +69,14 @@ exports.readPostsByTitle = async (req, res) => {
 
 exports.insertPost = async (req, res) => {
   try {
-    let { post_title, post_content, board_no, user_id } = req.body;
+    let { post_title, post_content, board_no, writer } = req.body;
     const created_at = moment()
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
     const response = await processQuery(
-      "INSERT INTO `post` (post_title, post_content, created_at, board_no, user_id) VALUES (?,?,?,?,?)",
-      [post_title, post_content, created_at, board_no, user_id]
+      "INSERT INTO `post` (post_title, post_content, created_at, board_no, writer) VALUES (?,?,?,?,?)",
+      [post_title, post_content, created_at, board_no, writer]
     );
     console.log(response);
     res.send({
@@ -92,17 +92,20 @@ exports.updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     let { post_title, post_content, board_no, user_id } = req.body;
-    //temp
-    user_id = 1;
-    const updated_at = moment()
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ");
-    await processQuery(
-      "UPDATE `post` SET post_title=?, post_content=? WHERE post_no=? ",
-      [post_title, post_content, id]
+    const tmpValue = await processQuery(
+      "SELECT `writer` FROM `post` WHERE post_no=? ",
+      [id]
     );
-    res.send("Successfully uploaded!");
+
+    if (req.currentUsername === tmpValue[0].writer) {
+      await processQuery(
+        "UPDATE `post` SET post_title=?, post_content=? WHERE post_no=? ",
+        [post_title, post_content, id]
+      );
+      res.send("Successfully uploaded!");
+    } else {
+      res.status(401).json({ success: false });
+    }
   } catch (e) {
     throw e;
   }
@@ -111,13 +114,23 @@ exports.updatePost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log("BBBBBBB");
+    console.log(req.currentUsername);
     const updated_at = moment()
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
-    await processQuery("DELETE FROM `post` WHERE post_no=? ", [id]);
-    res.send("Successfully deleted!");
+    const tmpValue = await processQuery(
+      "SELECT `writer` FROM `post` WHERE post_no=? ",
+      [id]
+    );
+    console.log(tmpValue[0].writer);
+    if (req.currentUsername === tmpValue[0].writer) {
+      await processQuery("DELETE FROM `post` WHERE post_no=? ", [id]);
+      res.send("Successfully deleted!");
+    } else {
+      res.status(401).json({ success: false });
+    }
   } catch (e) {
     throw e;
   }

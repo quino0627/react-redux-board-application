@@ -91,9 +91,10 @@ exports.register = async (req, res) => {
       username
     );
     console.log(duplicated);
-    if (duplicated[0].username) {
+    if (duplicated === []) {
       return res.status(401).json({ success: false });
     } else {
+      console.log("ASDF");
       await processQuery(
         "INSERT INTO `user` (username, pwd, pwd_help) VALUES (?,?,?)",
         data

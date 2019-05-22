@@ -4,8 +4,10 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as baseActions from "../../store/modules/base";
-
+import api from "../../lib/api";
 class HeaderContainer extends Component {
+  componentDidMount() {}
+
   handleRemove = () => {
     const { BaseActions } = this.props;
     BaseActions.showModal("remove");
