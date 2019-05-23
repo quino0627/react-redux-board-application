@@ -134,16 +134,6 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-// router.post("/comments/:id", needsAuth.checkLogin, postsCtrl.insertComment);
-
-// router.get("/comments/:id", postsCtrl.readCommentsByPostId);
-
-// router.delete(
-//   "comments/:postid/:commentid",
-//   needsAuth.isMyUid,
-//   postsCtrl.deleteComment
-// );
-
 exports.insertComment = async (req, res) => {
   try {
     const { id } = req.params;
@@ -174,6 +164,37 @@ exports.readCommentsByPostId = async (req, res) => {
       [id]
     );
     console.log("ASDFASDFASDF");
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    throw e;
+  }
+};
+
+// router.get("/board", postsCtrl.getBoardList);
+
+// router.get("/board/:board_id", postsCtrl.getPostsByBoardId);
+
+exports.getBoardList = async (req, res) => {
+  try {
+    const result = await processQuery(
+      "SELECT * FROM `board` ORDER BY `board_no`",
+      [id]
+    );
+    console.log(result);
+    res.json(result);
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.getPostsByBoardId = async (req, res) => {
+  try {
+    const { board_id } = req.params;
+    const result = await processQuery(
+      "SELECT * FROM `board` natural join `post` WHERE `board_no`=? ORDER BY `post_no` DESC",
+      [board_id]
+    );
     console.log(result);
     res.json(result);
   } catch (e) {

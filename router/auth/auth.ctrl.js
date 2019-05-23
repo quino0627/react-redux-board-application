@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
         };
         res.send("LOGIN SUCCESS");
       } else {
-        res.send("LOGIN FAIL");
+        res.status(401).json({ success: false });
       }
     } else {
       return res.status(401).json({ success: false });

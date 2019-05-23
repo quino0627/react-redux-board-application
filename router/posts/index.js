@@ -24,10 +24,10 @@ router.post("/comments/:id", needsAuth.checkLogin, postsCtrl.insertComment);
 
 router.get("/comments/:id", postsCtrl.readCommentsByPostId);
 
-// router.delete(
-//   "comments/:postid/:commentid",
-//   needsAuth.isMyUid,
-//   postsCtrl.deleteComment
-// );
+//게시판 기능등
+
+router.get("/board", postsCtrl.getBoardList);
+
+router.get("/board/:board_id", postsCtrl.getPostsByBoardId);
 
 module.exports = router;
