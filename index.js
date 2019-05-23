@@ -40,9 +40,9 @@ if (process.env.NODE_ENV === "production") {
 //   res.sendFile(path.join(__dirname, "client/build", "index.html"));
 // });
 
-app.get("/api/greeting", (req, res) => {
-  return res.send("LOVE U");
-});
+// app.get("/api/greeting", (req, res) => {
+//   return res.send("LOVE U");
+// });
 
 app.use("/", router);
 

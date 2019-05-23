@@ -4,10 +4,40 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import queryString from "query-string";
-
+import "react-notifications/lib/notifications.css";
 import * as editorActions from "../../store/modules/editor";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 
 class EditorHeaderContainer extends Component {
+  createNotification = type => {
+    return () => {
+      switch (type) {
+        case "info":
+          NotificationManager.info("Info message");
+          break;
+        case "success":
+          NotificationManager.success("Success message", "Title here");
+          break;
+        case "warning":
+          NotificationManager.warning(
+            "Warning message",
+            "Close after 3000ms",
+            3000
+          );
+          break;
+        case "error":
+          NotificationManager.error("Error message", "Click me!", 5000, () => {
+            alert("callback");
+          });
+          break;
+        default:
+          break;
+      }
+    };
+  };
   componentDidMount() {
     const { EditorActions, location } = this.props;
     EditorActions.initialize(); // 에디터를 초기화 합니다.
@@ -26,27 +56,34 @@ class EditorHeaderContainer extends Component {
 
   handleSubmit = async () => {
     console.log("handleSubmit activated and ", this.props);
+
     const {
       title,
       markdown,
       tags,
       EditorActions,
       history,
-      location
+      location,
+      board_no
     } = this.props;
+    console.log(board_no, typeof board_no);
+
+    if (board_no === null) {
+      this.createNotification("warning")();
+      return;
+    }
     const post = {
       title,
       body: markdown,
       // 태그 텍스트를 , 로 분리시키고 앞뒤 공백을 지운 후 중복 되는 값을 제거해줍니다.
       tags:
-        tags === "" ? [] : [...new Set(tags.split(",").map(tag => tag.trim()))]
+        tags === "" ? [] : [...new Set(tags.split(",").map(tag => tag.trim()))],
+      board_no: board_no * 1
     };
-    console.log("BEFORE TRY");
     try {
       //  id 가 존재하는 경우 editPost 호출
       const { id } = queryString.parse(location.search);
       if (id) {
-        console.log("maybe here?");
         await EditorActions.editPost({ id, ...post });
         history.push(`/post/${id}`);
         return;
@@ -67,11 +104,14 @@ class EditorHeaderContainer extends Component {
     const { id } = queryString.parse(this.props.location.search);
 
     return (
-      <EditorHeader
-        onGoBack={handleGoBack}
-        onSubmit={handleSubmit}
-        isEdit={id ? true : false}
-      />
+      <>
+        <EditorHeader
+          onGoBack={handleGoBack}
+          onSubmit={handleSubmit}
+          isEdit={id ? true : false}
+        />
+        <NotificationContainer />
+      </>
     );
   }
 }
@@ -81,7 +121,8 @@ export default connect(
     title: state.editor.get("title"),
     markdown: state.editor.get("markdown"),
     tags: state.editor.get("tags"),
-    postId: state.editor.get("postId")
+    postId: state.editor.get("postId"),
+    board_no: state.editor.get("board_no")
   }),
   dispatch => ({
     EditorActions: bindActionCreators(editorActions, dispatch)

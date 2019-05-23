@@ -15,12 +15,18 @@ class HeaderContainer extends Component {
 
   render() {
     const { handleRemove } = this;
-    const { match, logged } = this.props;
+    const { match, logged, location } = this.props;
 
     const { id } = match.params;
-    console.log(this.props);
 
-    return <Header postId={id} logged={logged} onRemove={handleRemove} />;
+    return (
+      <Header
+        postId={id}
+        logged={logged}
+        onRemove={handleRemove}
+        location={location}
+      />
+    );
   }
 }
 

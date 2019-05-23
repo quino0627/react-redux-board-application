@@ -177,10 +177,7 @@ exports.readCommentsByPostId = async (req, res) => {
 
 exports.getBoardList = async (req, res) => {
   try {
-    const result = await processQuery(
-      "SELECT * FROM `board` ORDER BY `board_no`",
-      [id]
-    );
+    const result = await processQuery("SELECT * FROM `board`", []);
     console.log(result);
     res.json(result);
   } catch (e) {
@@ -190,14 +187,49 @@ exports.getBoardList = async (req, res) => {
 
 exports.getPostsByBoardId = async (req, res) => {
   try {
+    let { page } = req.query;
+    console.log("ZXCVZXCV");
+    console.log(req.query);
     const { board_id } = req.params;
+    console.log(board_id);
     const result = await processQuery(
-      "SELECT * FROM `board` natural join `post` WHERE `board_no`=? ORDER BY `post_no` DESC",
+      "SELECT * FROM `board` natural join `post` WHERE `board_no`=? ORDER BY `post_no` DESC LIMIT ? OFFSET ?",
+      [board_id, 5, (page - 1) * 5]
+    );
+    console.log(result);
+    const postCount = await processQuery(
+      "SELECT count (distinct `post_no`) as cnt from (SELECT * FROM `board` natural join `post` WHERE `board_no`=? ) as t",
       [board_id]
     );
+    console.log("postCount is", postCount);
+
+    const pageCount = Math.ceil(postCount[0].cnt / 5);
+    res.set("Last-Page", pageCount);
     console.log(result);
     res.json(result);
   } catch (e) {
     throw e;
   }
 };
+
+// exports.readPosts = async (req, res) => {
+//   try {
+//     let { page } = req.query;
+//     let result = await processQuery(
+//       "SELECT * FROM `post` ORDER BY `post_no` DESC LIMIT ? OFFSET ?",
+//       [5, (page - 1) * 5]
+//     );
+
+//     const postCount = await processQuery(
+//       "SELECT count (distinct `post_no`) as cnt from `post` "
+//     );
+
+//     const pageCount = Math.ceil(postCount[0].cnt / 5);
+//     res.set("Last-Page", pageCount);
+
+//     res.json(result);
+//     // console.log(postCount[0].cnt, pageCount);
+//   } catch (e) {
+//     throw e;
+//   }
+// };

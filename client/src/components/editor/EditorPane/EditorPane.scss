@@ -5,6 +5,23 @@
   display: flex;
   flex-direction: column;
 
+  .select-board {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: $oc-gray-8;
+    color: white;
+    height: 2.5rem;
+
+    .select-radios {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      input + input {
+        margin-left: 1rem;
+      }
+    }
+  }
   .title {
     background: $oc-gray-7;
     border: none;

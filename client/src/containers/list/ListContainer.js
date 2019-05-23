@@ -6,8 +6,9 @@ import PostList from "../../components/list/PostList";
 import Pagination from "../../components/list/Pagination";
 class ListContainer extends Component {
   getPostList = () => {
-    const { tag, page, ListActions } = this.props;
+    const { board_no = -1, tag, page, ListActions } = this.props;
     ListActions.getPostList({
+      board_no,
       page,
       tag
     });
@@ -29,7 +30,6 @@ class ListContainer extends Component {
 
   render() {
     const { loading, posts, page, lastPage, tag } = this.props;
-    console.log(posts);
     if (loading) return null;
 
     return (

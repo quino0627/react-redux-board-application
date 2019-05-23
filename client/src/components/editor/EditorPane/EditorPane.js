@@ -17,6 +17,9 @@ import "codemirror/theme/monokai.css";
 const cx = classNames.bind(styles);
 
 class EditorPane extends Component {
+  state = {
+    board_type: ""
+  };
   editor = null; //에디터 ref
   codeMirror = null; //코드미러 인스턴스
   cursor = null;
@@ -40,6 +43,12 @@ class EditorPane extends Component {
     const { value, name } = e.target;
 
     onChangeInput({ name, value });
+  };
+
+  handleRadioChange = e => {
+    console.log(e.target.value);
+    const { onChangeRadio } = this.props;
+    onChangeRadio({ value: e.target.value });
   };
 
   handleChangeMarkdown = doc => {
@@ -67,6 +76,39 @@ class EditorPane extends Component {
 
     return (
       <div className={cx("editor-pane")}>
+        <div className={cx("select-board")}>
+          <div className={cx("select-title")}>게시판 선택</div>
+          <div className={cx("select-radios")}>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                value="1"
+                onClick={this.handleRadioChange}
+              />{" "}
+              CN &nbsp;&nbsp;&nbsp;
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                value="3"
+                onClick={this.handleRadioChange}
+              />{" "}
+              DB &nbsp;&nbsp;&nbsp;
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                value="4"
+                onClick={this.handleRadioChange}
+              />{" "}
+              잡담
+            </div>
+          </div>
+        </div>
+
         <input
           className={cx("title")}
           placeholder="제목을 입력하세요"

@@ -1,6 +1,7 @@
 @import "../../../styles/utils.scss";
 .header {
   background: $oc-blue-6;
+
   .header-content {
     height: 5rem;
     width: 1400px;
@@ -23,6 +24,22 @@
       color: white;
       font-size: 1.5rem;
       font-weight: 600;
+      margin-right: 2rem;
+    }
+    .board {
+      color: white;
+      font-size: 1rem;
+    }
+
+    .router + .router {
+      margin-left: 1rem;
+      font-weight: 500;
+    }
+
+    .selected {
+      font-size: 1.5rem;
+      font-weight: 800 !important;
+      color: $oc-orange-6;
     }
 
     .right {

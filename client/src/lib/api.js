@@ -1,14 +1,14 @@
 import axios from "axios";
 import queryString from "query-string";
+import { actionTypes } from "redux-pender/lib/utils";
 
-export const writePost = async ({ title, body }) => {
+export const writePost = async ({ title, body, board_no }) => {
+  console.log(board_no);
   const loggedInfo = await checkLogin();
-  console.log("AAAAAAAAAAAAAAA");
-  console.log(loggedInfo.data.logged.username);
   return axios.post("/api/posts", {
     post_title: title,
     post_content: body,
-    board_no: 3,
+    board_no: board_no,
     writer: loggedInfo.data.logged.username
   });
 };
@@ -17,8 +17,17 @@ export const getPost = id => {
   return axios.get(`/api/posts/${id}`);
 };
 
-export const getPostList = ({ tag, page }) =>
-  axios.get(`/api/posts/?${queryString.stringify({ tag, page })}`);
+export const getPostList = ({ tag, page, board_no }) => {
+  if (board_no === -1) {
+    console.log("BOARDNO IS -1");
+    return axios.get(`/api/posts/?${queryString.stringify({ tag, page })}`);
+  } else {
+    console.log("BOARDNO IS ", board_no, typeof board_no);
+    console.log(page);
+    console.log(queryString.stringify(page));
+    return axios.get(`/api/posts/board/${board_no}/?page=${page}`);
+  }
+};
 
 export const editPost = ({ id, title, body, tags }) =>
   axios.patch(`/api/posts/${id}`, { post_title: title, post_content: body });
