@@ -29,13 +29,18 @@ class ListContainer extends Component {
   }
 
   render() {
-    const { loading, posts, page, lastPage, tag } = this.props;
+    const { loading, posts, page, lastPage, tag, board_no = -1 } = this.props;
     if (loading) return null;
 
     return (
       <div>
         <PostList posts={posts} />
-        <Pagination page={page} lastPage={lastPage} tag={tag} />
+        <Pagination
+          page={page}
+          lastPage={lastPage}
+          tag={tag}
+          board_no={board_no}
+        />
       </div>
     );
   }

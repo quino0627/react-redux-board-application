@@ -2,13 +2,17 @@ import React from "react";
 import styles from "./Pagination.scss";
 import classNames from "classnames/bind";
 import Button from "../../common/Button";
-import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const Pagination = ({ page, lastPage, tag }) => {
+const Pagination = ({ page, lastPage, tag, board_no }) => {
+  console.log(board_no);
   const createPagePath = page => {
-    return tag ? `/tag/${tag}/${page}` : `/page/${page}`;
+    return tag
+      ? `/tag/${tag}/${page}`
+      : board_no === -1
+      ? `/page/${page}`
+      : `/board/${board_no}/${page}`;
   };
   return (
     <div className={cx("pagination")}>

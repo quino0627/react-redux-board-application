@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 const Header = ({ postId, logged, onRemove, location }) => {
   console.log(location);
-  const tmp = location.pathname.split("/")[2];
+  const tmp = location.pathname.split("/")[1] + location.pathname.split("/")[2];
   console.log(tmp);
   return (
     <header className={cx("header")}>
@@ -18,25 +18,30 @@ const Header = ({ postId, logged, onRemove, location }) => {
         </div>
         <div className={cx("board")}>
           <a
-            className={cx("router", tmp === undefined ? "selected" : "")}
+            className={cx(
+              "router",
+              tmp === "undefined" || location.pathname.split("/")[1] === "page"
+                ? "selected"
+                : ""
+            )}
             href="/"
           >
             ALL
           </a>
           <a
-            className={cx("router", tmp === "1" ? "selected" : "")}
+            className={cx("router", tmp === "board1" ? "selected" : "")}
             href="/board/1"
           >
             CN
           </a>
           <a
-            className={cx("router", tmp === "3" ? "selected" : "")}
+            className={cx("router", tmp === "board3" ? "selected" : "")}
             href="/board/3"
           >
             DB
           </a>
           <a
-            className={cx("router", tmp === "4" ? "selected" : "")}
+            className={cx("router", tmp === "board4" ? "selected" : "")}
             href="/board/4"
           >
             잡담
