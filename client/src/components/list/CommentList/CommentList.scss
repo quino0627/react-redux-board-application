@@ -1,0 +1,53 @@
+@import "../../../styles/utils.scss";
+
+.comment-list {
+  .post-item {
+    @include material-shadow(2, 0.5);
+
+    transition: all 0.15s ease-in;
+    background: white;
+    padding: 1rem;
+    margin: 1rem;
+    h5 {
+      margin: 0.5rem;
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      margin: 0;
+      color: $oc-gray-8;
+    }
+    a {
+      transition: all 0.15s ease-in;
+      border-bottom: 1px solid transparent;
+    }
+    a:hover {
+      color: $oc-blue-6;
+      border-bottom: 1px solid $oc-blue-6;
+    }
+    .post-input {
+      width: 100%;
+
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      resize: none;
+    }
+    .date,
+    .writer {
+      font-size: 0.85rem;
+      color: $oc-gray-5;
+    }
+    p {
+      font-weight: 500;
+      color: black;
+      margin: 0.5rem 0 0.5rem 0;
+    }
+    &:hover {
+      background: rgba($oc-blue-6, 0.05);
+    }
+
+    .post-item + .post-item {
+      border-top: 1px solid $oc-gray-3;
+    }
+  }
+}

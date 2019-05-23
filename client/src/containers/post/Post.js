@@ -5,13 +5,14 @@ import * as postActions from "../../store/modules/post";
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { async } from "rxjs/internal/scheduler/async";
 
 class Post extends Component {
   initialize = async () => {
     const { PostActions, id } = this.props;
+    console.log(id);
     try {
       await PostActions.getPost(id);
+      console.log(this.props);
     } catch (e) {
       console.log(e);
     }
@@ -29,7 +30,6 @@ class Post extends Component {
     const { loading, post } = this.props;
 
     if (loading) return null;
-    console.log("THIS IS POST CONTAINER");
     const {
       post_title,
       post_no,

@@ -114,8 +114,6 @@ exports.updatePost = async (req, res) => {
 exports.deletePost = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("BBBBBBB");
-    console.log(req.currentUsername);
     const updated_at = moment()
       .toISOString()
       .slice(0, 19)
@@ -131,6 +129,53 @@ exports.deletePost = async (req, res) => {
     } else {
       res.status(401).json({ success: false });
     }
+  } catch (e) {
+    throw e;
+  }
+};
+
+// router.post("/comments/:id", needsAuth.checkLogin, postsCtrl.insertComment);
+
+// router.get("/comments/:id", postsCtrl.readCommentsByPostId);
+
+// router.delete(
+//   "comments/:postid/:commentid",
+//   needsAuth.isMyUid,
+//   postsCtrl.deleteComment
+// );
+
+exports.insertComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { post_no, comments_content, commenter_username } = req.body;
+    const comment_at = moment()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+    const response = await processQuery(
+      "INSERT INTO `comments` (post_no, comments_content, commenter_username, comment_at) VALUES (?,?,?,?)",
+      [id, comments_content, req.currentUsername, comment_at]
+    );
+    console.log(response);
+    res.send({
+      _id: response.insertId,
+      response: response
+    });
+  } catch (e) {
+    throw e;
+  }
+};
+
+exports.readCommentsByPostId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await processQuery(
+      "SELECT * FROM `comments` WHERE post_no=? ORDER BY `comments_no`",
+      [id]
+    );
+    console.log("ASDFASDFASDF");
+    console.log(result);
+    res.json(result);
   } catch (e) {
     throw e;
   }

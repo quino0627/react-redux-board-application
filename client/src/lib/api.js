@@ -14,7 +14,6 @@ export const writePost = async ({ title, body }) => {
 };
 
 export const getPost = id => {
-  console.log("GETPOST API");
   return axios.get(`/api/posts/${id}`);
 };
 
@@ -27,12 +26,10 @@ export const editPost = ({ id, title, body, tags }) =>
 export const removePost = id => axios.delete(`/api/posts/${id}`);
 
 export const login = (username, password) => {
-  console.log(username, password);
   return axios.post("/api/auth/login", {
     username: username,
     password: password
   });
-  // console.log(result);
 };
 
 export const checkLogin = () => axios.get("/api/auth/check");
@@ -43,3 +40,13 @@ export const register = (username, password) =>
     username: username,
     password: password
   });
+
+export const writeComment = async ({ id, body }) => {
+  return axios.post(`/api/posts/comments/${id}`, {
+    comments_content: body
+  });
+};
+
+export const getComment = async ({ id }) => {
+  return axios.get(`/api/posts/comments/${id}`);
+};

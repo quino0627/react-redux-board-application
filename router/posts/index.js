@@ -18,4 +18,16 @@ router.delete("/:id", needsAuth.isMyUid, postsCtrl.deletePost);
 //포스트 수정하기
 router.patch("/:id", needsAuth.isMyUid, postsCtrl.updatePost);
 
+//댓글 기능
+//댓글 작성하기
+router.post("/comments/:id", needsAuth.checkLogin, postsCtrl.insertComment);
+
+router.get("/comments/:id", postsCtrl.readCommentsByPostId);
+
+// router.delete(
+//   "comments/:postid/:commentid",
+//   needsAuth.isMyUid,
+//   postsCtrl.deleteComment
+// );
+
 module.exports = router;

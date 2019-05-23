@@ -28,7 +28,6 @@ class ListContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { loading, posts, page, lastPage, tag } = this.props;
     console.log(posts);
     if (loading) return null;
