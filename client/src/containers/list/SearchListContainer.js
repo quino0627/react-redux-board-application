@@ -25,15 +25,12 @@ class SearchListContainer extends Component {
     this.getSearchList();
   }
 
-  //   componentDidUpdate(prevProps, prevState) {
-  //     if (
-  //       prevProps.page !== this.props.page ||
-  //       prevProps.tag !== this.props.tag
-  //     ) {
-  //       this.getSearchList();
-  //       document.documentElement.scrollTop = 0;
-  //     }
-  //   }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.keyword1 !== this.props.keyword1) {
+      this.getSearchList();
+      document.documentElement.scrollTop = 0;
+    }
+  }
 
   render() {
     const { loading, posts, keyword, keyword1 } = this.props;
