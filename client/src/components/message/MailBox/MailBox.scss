@@ -1,0 +1,31 @@
+@import "../../../styles/utils.scss";
+
+.message-list {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+
+  .message-item {
+    background: white;
+    padding: 1.5rem;
+    transition: all 0.15s ease-in;
+    &:hover {
+        background: rgba($oc-blue-4, 0.05);
+      }
+    h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      margin: 0;
+      color: $oc-gray-8;
+    }
+    .date {
+      font-size: 0.85rem;
+      color: $oc-gray-6;
+    }
+
+    p {
+      font-weight: 400;
+      color: $oc-gray-7;
+    }
+  }
+}
