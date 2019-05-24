@@ -10,7 +10,7 @@ class FooterContainer extends Component {
     if (logged) {
       try {
         await BaseActions.logout();
-        window.location.reload(); // 페이지 새로고침
+        window.location.href = "/"; // 페이지 새로고침
       } catch (e) {
         console.log(e);
       }

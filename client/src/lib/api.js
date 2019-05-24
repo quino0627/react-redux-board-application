@@ -63,3 +63,14 @@ export const getComment = async ({ id }) => {
 export const getSearchList = async ({ keyword }) => {
   return axios.get(`/api/posts/search/?keyword=${keyword}`);
 };
+
+export const getMessageList = async () => {
+  return axios.get(`/api/message//mymails`);
+};
+
+export const sendMessage = async ({ message_content, receiver_username }) => {
+  return axios.post(`/api/message/send`, {
+    message_content: message_content,
+    receiver_username: receiver_username
+  });
+};
