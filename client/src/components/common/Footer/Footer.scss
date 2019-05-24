@@ -9,6 +9,9 @@
   justify-content: center;
   flex-direction: column;
 
+  .links {
+    display: flex;
+  }
   .brand {
     color: white;
     font-size: 2rem;
@@ -24,5 +27,9 @@
     &:hover {
       color: white;
     }
+  }
+
+  .admin-login + .admin-login {
+    margin-left: 2rem;
   }
 }

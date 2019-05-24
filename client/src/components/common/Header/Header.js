@@ -57,6 +57,9 @@ const Header = ({ postId, logged, onRemove, location }) => {
                 삭제
               </Button>
             ]}
+            <Button theme="outline" to="/messagewrite">
+              새 쪽지
+            </Button>
             <Button theme="outline" to="/editor">
               새 포스트
             </Button>
