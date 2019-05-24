@@ -14,7 +14,7 @@ const Header = ({ postId, logged, onRemove, location }) => {
     <header className={cx("header")}>
       <div className={cx("header-content")}>
         <div className={cx("brand")}>
-          <Link to="/">MongLog</Link>
+          <a href="/">MongLog</a>
         </div>
         <div className={cx("board")}>
           <a

@@ -6,7 +6,6 @@ import Button from "../../common/Button";
 const cx = classNames.bind(styles);
 
 const Pagination = ({ page, lastPage, tag, board_no }) => {
-  console.log(board_no);
   const createPagePath = page => {
     return tag
       ? `/tag/${tag}/${page}`

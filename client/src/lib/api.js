@@ -59,3 +59,7 @@ export const writeComment = async ({ id, body }) => {
 export const getComment = async ({ id }) => {
   return axios.get(`/api/posts/comments/${id}`);
 };
+
+export const getSearchList = async ({ keyword }) => {
+  return axios.get(`/api/posts/search/?keyword=${keyword}`);
+};

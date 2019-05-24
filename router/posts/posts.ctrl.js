@@ -23,6 +23,7 @@ async function processQuery(query, data) {
 exports.readPosts = async (req, res) => {
   try {
     let { page } = req.query;
+
     let result = await processQuery(
       "SELECT * FROM `post` ORDER BY `post_no` DESC LIMIT ? OFFSET ?",
       [5, (page - 1) * 5]
@@ -36,7 +37,6 @@ exports.readPosts = async (req, res) => {
     res.set("Last-Page", pageCount);
 
     res.json(result);
-    // console.log(postCount[0].cnt, pageCount);
   } catch (e) {
     throw e;
   }
@@ -78,7 +78,7 @@ exports.insertPost = async (req, res) => {
       "INSERT INTO `post` (post_title, post_content, created_at, board_no, writer) VALUES (?,?,?,?,?)",
       [post_title, post_content, created_at, board_no, writer]
     );
-    console.log(response);
+
     res.send({
       _id: response.insertId,
       response: response
@@ -122,7 +122,7 @@ exports.deletePost = async (req, res) => {
       "SELECT `writer` FROM `post` WHERE post_no=? ",
       [id]
     );
-    console.log(tmpValue[0].writer);
+
     if (req.currentUsername === tmpValue[0].writer) {
       await processQuery("DELETE FROM `post` WHERE post_no=? ", [id]);
       res.send("Successfully deleted!");
@@ -146,7 +146,7 @@ exports.insertComment = async (req, res) => {
       "INSERT INTO `comments` (post_no, comments_content, commenter_username, comment_at) VALUES (?,?,?,?)",
       [id, comments_content, req.currentUsername, comment_at]
     );
-    console.log(response);
+
     res.send({
       _id: response.insertId,
       response: response
@@ -163,8 +163,7 @@ exports.readCommentsByPostId = async (req, res) => {
       "SELECT * FROM `comments` WHERE post_no=? ORDER BY `comments_no`",
       [id]
     );
-    console.log("ASDFASDFASDF");
-    console.log(result);
+
     res.json(result);
   } catch (e) {
     throw e;
@@ -178,7 +177,7 @@ exports.readCommentsByPostId = async (req, res) => {
 exports.getBoardList = async (req, res) => {
   try {
     const result = await processQuery("SELECT * FROM `board`", []);
-    console.log(result);
+
     res.json(result);
   } catch (e) {
     throw e;
@@ -188,30 +187,39 @@ exports.getBoardList = async (req, res) => {
 exports.getPostsByBoardId = async (req, res) => {
   try {
     let { page } = req.query;
-    console.log("ZXCVZXCV");
-    console.log(req.query);
+
     const { board_id } = req.params;
-    console.log(board_id);
+
     const result = await processQuery(
       "SELECT * FROM `board` natural join `post` WHERE `board_no`=? ORDER BY `post_no` DESC LIMIT ? OFFSET ?",
       [board_id, 5, (page - 1) * 5]
     );
-    console.log(result);
+
     const postCount = await processQuery(
       "SELECT count (distinct `post_no`) as cnt from (SELECT * FROM `board` natural join `post` WHERE `board_no`=? ) as t",
       [board_id]
     );
-    console.log("postCount is", postCount);
 
     const pageCount = Math.ceil(postCount[0].cnt / 5);
     res.set("Last-Page", pageCount);
-    console.log(result);
+
     res.json(result);
   } catch (e) {
     throw e;
   }
 };
 
+exports.getSearchList = async (req, res) => {
+  try {
+    let { keyword } = req.query;
+    let result = await processQuery(
+      'SELECT * FROM `post` WHERE `post_title` LIKE "' + "%" + keyword + '%"'
+    );
+    res.json(result);
+  } catch (e) {
+    throw e;
+  }
+};
 // exports.readPosts = async (req, res) => {
 //   try {
 //     let { page } = req.query;

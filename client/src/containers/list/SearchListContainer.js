@@ -5,7 +5,7 @@ import * as listActions from "../../store/modules/list";
 import PostList from "../../components/list/PostList";
 import Pagination from "../../components/list/Pagination";
 import SearchBar from "../../components/common/SearchBar";
-class ListContainer extends Component {
+class SearchListContainer extends Component {
   handleChange = e => {
     console.log("ACTIVATEd");
     const { value } = e.target;
@@ -14,58 +14,37 @@ class ListContainer extends Component {
   };
 
   getSearchList = () => {
-    const { ListActions, keyword } = this.props;
+    const { ListActions, keyword1 } = this.props;
+    console.log(this.props);
     ListActions.getSearchList({
-      keyword: keyword
-    });
-  };
-
-  getPostList = () => {
-    const { board_no = -1, tag, page, ListActions } = this.props;
-    ListActions.getPostList({
-      board_no,
-      page,
-      tag
+      keyword: keyword1
     });
   };
 
   componentDidMount() {
-    this.getPostList();
+    this.getSearchList();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevProps.page !== this.props.page ||
-      prevProps.tag !== this.props.tag
-    ) {
-      this.getPostList();
-      document.documentElement.scrollTop = 0;
-    }
-  }
+  //   componentDidUpdate(prevProps, prevState) {
+  //     if (
+  //       prevProps.page !== this.props.page ||
+  //       prevProps.tag !== this.props.tag
+  //     ) {
+  //       this.getSearchList();
+  //       document.documentElement.scrollTop = 0;
+  //     }
+  //   }
 
   render() {
-    const {
-      loading,
-      posts,
-      page,
-      lastPage,
-      tag,
-      board_no = -1,
-      keyword
-    } = this.props;
+    const { loading, posts, keyword, keyword1 } = this.props;
     const { handleChange } = this;
     if (loading) return null;
 
     return (
       <div>
+        <h3>"{keyword1}"에 대한 검색 결과</h3>
         <SearchBar keyword={keyword} onChange={handleChange} />
         <PostList posts={posts} />
-        <Pagination
-          page={page}
-          lastPage={lastPage}
-          tag={tag}
-          board_no={board_no}
-        />
       </div>
     );
   }
@@ -73,12 +52,11 @@ class ListContainer extends Component {
 
 export default connect(
   state => ({
-    lastPage: state.list.get("lastPage"),
     posts: state.list.get("posts"),
-    loading: state.pender.pending["list/GET_POST_LIST"],
+    loading: state.pender.pending["list/GET_SEARCH_LIST"],
     keyword: state.list.get("keyword")
   }),
   dispatch => ({
     ListActions: bindActionCreators(listActions, dispatch)
   })
-)(ListContainer);
+)(SearchListContainer);
