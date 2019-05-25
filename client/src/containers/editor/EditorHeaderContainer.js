@@ -57,17 +57,16 @@ class EditorHeaderContainer extends Component {
   handleSubmit = async () => {
     console.log("handleSubmit activated and ", this.props);
 
-    const {
+    let {
       title,
       markdown,
-      tags,
       EditorActions,
       history,
       location,
       board_no
     } = this.props;
     console.log(board_no, typeof board_no);
-
+    board_no = board_no * 1;
     if (board_no === null) {
       this.createNotification("warning")();
       return;
@@ -75,13 +74,11 @@ class EditorHeaderContainer extends Component {
     const post = {
       title,
       body: markdown,
-      // 태그 텍스트를 , 로 분리시키고 앞뒤 공백을 지운 후 중복 되는 값을 제거해줍니다.
-      tags:
-        tags === "" ? [] : [...new Set(tags.split(",").map(tag => tag.trim()))],
       board_no: board_no * 1
     };
     try {
       //  id 가 존재하는 경우 editPost 호출
+
       const { id } = queryString.parse(location.search);
       if (id) {
         await EditorActions.editPost({ id, ...post });

@@ -22,15 +22,17 @@ export const getPostList = ({ tag, page, board_no }) => {
     console.log("BOARDNO IS -1");
     return axios.get(`/api/posts/?${queryString.stringify({ tag, page })}`);
   } else {
-    console.log("BOARDNO IS ", board_no, typeof board_no);
-    console.log(page);
-    console.log(queryString.stringify(page));
     return axios.get(`/api/posts/board/${board_no}/?page=${page}`);
   }
 };
 
-export const editPost = ({ id, title, body, tags }) =>
-  axios.patch(`/api/posts/${id}`, { post_title: title, post_content: body });
+export const editPost = ({ id, title, body, board_no }) => {
+  return axios.patch(`/api/posts/${id}`, {
+    post_title: title,
+    post_content: body,
+    board_no: board_no
+  });
+};
 
 export const removePost = id => axios.delete(`/api/posts/${id}`);
 

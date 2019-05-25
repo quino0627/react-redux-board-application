@@ -53,9 +53,12 @@ export default handleActions(
     ...pender({
       type: GET_POST,
       onSuccess: (state, action) => {
-        console.log(action.payload.data[0].post_title);
-        const { post_title, post_content, tags } = action.payload.data[0];
-        return state.set("title", post_title).set("markdown", post_content);
+        console.log(action.payload.data[0].board_no);
+        const { post_title, post_content, board_no } = action.payload.data[0];
+        return state
+          .set("title", post_title)
+          .set("markdown", post_content)
+          .set("board_no", board_no);
         // .set("tags", tags.join(", "));
       }
     })

@@ -29,6 +29,7 @@ class EditorPaneContainer extends Component {
         tags={tags}
         onChangeInput={handleChangeInput}
         onChangeRadio={handleChangeRadio}
+        board_no={board_no}
       />
     );
   }

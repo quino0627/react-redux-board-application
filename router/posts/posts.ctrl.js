@@ -92,6 +92,7 @@ exports.updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     let { post_title, post_content, board_no, user_id } = req.body;
+    console.log(board_no);
     const tmpValue = await processQuery(
       "SELECT `writer` FROM `post` WHERE post_no=? ",
       [id]
@@ -99,8 +100,8 @@ exports.updatePost = async (req, res) => {
 
     if (req.currentUsername === tmpValue[0].writer) {
       await processQuery(
-        "UPDATE `post` SET post_title=?, post_content=? WHERE post_no=? ",
-        [post_title, post_content, id]
+        "UPDATE `post` SET post_title=?, post_content=?, board_no=? WHERE post_no=? ",
+        [post_title, post_content, board_no, id]
       );
       res.send("Successfully uploaded!");
     } else {
@@ -170,10 +171,6 @@ exports.readCommentsByPostId = async (req, res) => {
   }
 };
 
-// router.get("/board", postsCtrl.getBoardList);
-
-// router.get("/board/:board_id", postsCtrl.getPostsByBoardId);
-
 exports.getBoardList = async (req, res) => {
   try {
     const result = await processQuery("SELECT * FROM `board`", []);
@@ -220,24 +217,3 @@ exports.getSearchList = async (req, res) => {
     throw e;
   }
 };
-// exports.readPosts = async (req, res) => {
-//   try {
-//     let { page } = req.query;
-//     let result = await processQuery(
-//       "SELECT * FROM `post` ORDER BY `post_no` DESC LIMIT ? OFFSET ?",
-//       [5, (page - 1) * 5]
-//     );
-
-//     const postCount = await processQuery(
-//       "SELECT count (distinct `post_no`) as cnt from `post` "
-//     );
-
-//     const pageCount = Math.ceil(postCount[0].cnt / 5);
-//     res.set("Last-Page", pageCount);
-
-//     res.json(result);
-//     // console.log(postCount[0].cnt, pageCount);
-//   } catch (e) {
-//     throw e;
-//   }
-// };
