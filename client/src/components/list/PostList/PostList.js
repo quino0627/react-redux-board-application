@@ -8,11 +8,9 @@ import removeMd from "remove-markdown";
 const cx = classNames.bind(styles);
 
 const PostItem = ({ title, body, publishedDate, writer, tags, id }) => {
-  // const tagList = tags.map(tag => (
-  //   <Link key={tag} to={`/tag/${tag}`}>
-  //     #{tag}
-  //   </Link>
-  // ));
+  if (body.length > 100) {
+    body = body.slice(0, 100) + " ... ";
+  }
   return (
     <div className={cx("post-item")}>
       {id}번 게시글
@@ -24,11 +22,6 @@ const PostItem = ({ title, body, publishedDate, writer, tags, id }) => {
       <div className={cx("date")}>{publishedDate}</div>
       <div className={cx("writer")}>{writer}</div>
       <p>{removeMd(body)}</p>
-      <div className={cx("tags")}>
-        <a href="">#태그</a>
-        <a href="">#태그</a>
-        <a href="">#태그</a>
-      </div>
     </div>
   );
 };
