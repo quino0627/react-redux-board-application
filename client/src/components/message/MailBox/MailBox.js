@@ -12,6 +12,7 @@ const MessageItem = ({ sender_username, message_content, message_at }) => {
   //     #{tag}
   //   </Link>
   // ));
+  console.log(message_at);
   return (
     <div className={cx("message-item")}>
       <h2>From {sender_username}</h2>
@@ -25,11 +26,12 @@ const MessageItem = ({ sender_username, message_content, message_at }) => {
 const MailBox = ({ messages }) => {
   console.log("MESSAGES", messages);
   const messageList = messages.map((message, index) => {
-    const { sender_username, message_content } = message;
+    const { sender_username, message_content, message_at } = message;
     return (
       <MessageItem
         sender_username={sender_username}
         message_content={message_content}
+        message_at={message_at}
       />
     );
   });
