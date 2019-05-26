@@ -29,6 +29,15 @@ exports.readPosts = async (req, res) => {
       [5, (page - 1) * 5]
     );
 
+    result.map(x => {
+      //console.log(x);
+      if (x.post_content.length > 100) {
+        x.post_content = x.post_content.slice(0, 100);
+      }
+    });
+
+    console.log(result);
+
     const postCount = await processQuery(
       "SELECT count (distinct `post_no`) as cnt from `post` "
     );

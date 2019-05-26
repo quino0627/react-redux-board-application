@@ -1,7 +1,6 @@
 const express = require("express");
 const createError = require("http-errors");
 const logger = require("morgan");
-const posts = require("./posts");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const path = require("path");
