@@ -6,7 +6,39 @@ import MailBox from "../../components/message/MailBox/MailBox";
 
 import * as messageActions from "../../store/modules/message";
 
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
+
 class MessageWriteContainer extends Component {
+  createNotification = type => {
+    return () => {
+      switch (type) {
+        case "info":
+          NotificationManager.info("Info message");
+          break;
+        case "success":
+          NotificationManager.success("Success message", "Title here");
+          break;
+        case "warning":
+          NotificationManager.warning(
+            "존재하지 않는 유저네임입니다.",
+            "Close after 3000ms",
+            3000
+          );
+          break;
+        case "error":
+          NotificationManager.error("Error message", "Click me!", 5000, () => {
+            alert("callback");
+          });
+          break;
+        default:
+          break;
+      }
+    };
+  };
+
   handleChange = ({ name, value }) => {
     const { MessageListActions } = this.props;
     console.log(name, value);
@@ -29,6 +61,7 @@ class MessageWriteContainer extends Component {
       window.location.reload();
     } catch (e) {
       console.log(e);
+      this.createNotification("warning")();
     }
   };
 
@@ -39,12 +72,15 @@ class MessageWriteContainer extends Component {
     if (loading) return null;
 
     return (
-      <MessageWrite
-        receiver_username={receiver_username}
-        message_content={message_content}
-        onChange={handleChange}
-        onUpload={handleUpload}
-      />
+      <>
+        <MessageWrite
+          receiver_username={receiver_username}
+          message_content={message_content}
+          onChange={handleChange}
+          onUpload={handleUpload}
+        />
+        <NotificationContainer />
+      </>
     );
   }
 }

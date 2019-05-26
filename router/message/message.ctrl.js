@@ -57,6 +57,7 @@ exports.sendMessageToId = async (req, res) => {
     );
     res.json(result);
   } catch (e) {
+    res.status(401).json({ success: false });
     throw e;
   }
 };

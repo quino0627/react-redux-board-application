@@ -18,12 +18,16 @@ class EditorHeaderContainer extends Component {
         case "info":
           NotificationManager.info("Info message");
           break;
-        case "success":
-          NotificationManager.success("Success message", "Title here");
+        case "notyours":
+          NotificationManager.warning(
+            "당신의 게시물이 아닙니다",
+            "Close after 3000ms",
+            3000
+          );
           break;
         case "warning":
           NotificationManager.warning(
-            "Warning message",
+            "게시판을 선택해 주세요",
             "Close after 3000ms",
             3000
           );
@@ -91,7 +95,7 @@ class EditorHeaderContainer extends Component {
       // 이 자리에서 this.props.postId 를 조회해주어야합니다. (현재의 값을 불러오기 위함)
       history.push(`/post/${this.props.postId}`);
     } catch (e) {
-      console.log("ASDFASDF");
+      this.createNotification("notyours")();
       console.log(e);
     }
   };
