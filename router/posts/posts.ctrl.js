@@ -3,6 +3,8 @@ const pool = mysql_db.init();
 require("babel-polyfill");
 const moment = require("moment");
 
+// **************BEGIN EDITING*****************
+
 async function processQuery(query, data) {
   try {
     const conn = await pool.getConnection();
@@ -32,6 +34,8 @@ async function processQuery(query, data) {
     throw e;
   }
 }
+
+// **************QUIT EDITING*****************
 
 exports.readPosts = async (req, res) => {
   try {

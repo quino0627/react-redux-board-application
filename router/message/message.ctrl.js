@@ -2,7 +2,7 @@ const mysql_db = require("../../database/db.config")();
 const pool = mysql_db.init();
 require("babel-polyfill");
 const moment = require("moment");
-
+// **************BEGIN EDITING*****************
 async function processQuery(query, data) {
   try {
     const conn = await pool.getConnection();
@@ -32,6 +32,9 @@ async function processQuery(query, data) {
     throw e;
   }
 }
+
+// **************QUIT EDITING*****************
+
 exports.getMessageToMe = async (req, res) => {
   try {
     console.log("SSIBAL");

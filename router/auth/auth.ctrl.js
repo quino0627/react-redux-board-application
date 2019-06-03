@@ -1,12 +1,12 @@
 const mysql_db = require("../../database/db.config")();
 const pool = mysql_db.init();
 require("babel-polyfill");
-const moment = require("moment");
 const util = require("util");
 const crypto = require("crypto");
 const randomBytes = util.promisify(crypto.randomBytes);
 const pbkdf2 = util.promisify(crypto.pbkdf2);
 
+// **************BEGIN EDITING*****************
 async function processQuery(query, data) {
   try {
     const conn = await pool.getConnection();
@@ -36,6 +36,8 @@ async function processQuery(query, data) {
     throw e;
   }
 }
+
+// **************QUIT EDITING*****************
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
