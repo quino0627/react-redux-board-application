@@ -11,18 +11,32 @@ async function processQuery(query, data) {
   try {
     const conn = await pool.getConnection();
     try {
+      await conn.beginTransaction();
+      const [rows2] = await conn.query(
+        "SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+      );
+      const [rows3] = await conn.query("SELECT @@TX_ISOLATION");
+      console.log(rows3);
+      console.log("Transaction Started");
       const sql = conn.format(query, data);
       const [result] = await conn.query(sql);
+      await conn.commit();
       conn.release();
+      console.log("Transaction End");
       return result;
     } catch (e) {
+      await conn.rollback();
       conn.release();
+      console.log("Query Error");
       throw e;
     }
   } catch (e) {
+    console.log("DB error");
+
     throw e;
   }
 }
+
 exports.login = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -90,7 +104,7 @@ exports.register = async (req, res) => {
       "SELECT * FROM `user` WHERE `username`= ?",
       username
     );
-    console.log(duplicated);
+
     if (duplicated === []) {
       return res.status(401).json({ success: false });
     } else {

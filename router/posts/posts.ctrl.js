@@ -7,15 +7,28 @@ async function processQuery(query, data) {
   try {
     const conn = await pool.getConnection();
     try {
+      await conn.beginTransaction();
+      const [rows2] = await conn.query(
+        "SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+      );
+      const [rows3] = await conn.query("SELECT @@TX_ISOLATION");
+      console.log(rows3);
+      console.log("Transaction Started");
       const sql = conn.format(query, data);
       const [result] = await conn.query(sql);
+      await conn.commit();
       conn.release();
+      console.log("Transaction End");
       return result;
     } catch (e) {
+      await conn.rollback();
       conn.release();
+      console.log("Query Error");
       throw e;
     }
   } catch (e) {
+    console.log("DB error");
+
     throw e;
   }
 }
@@ -30,13 +43,10 @@ exports.readPosts = async (req, res) => {
     );
 
     result.map(x => {
-      //console.log(x);
       if (x.post_content.length > 100) {
         x.post_content = x.post_content.slice(0, 100);
       }
     });
-
-    console.log(result);
 
     const postCount = await processQuery(
       "SELECT count (distinct `post_no`) as cnt from `post` "
@@ -101,7 +111,7 @@ exports.updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     let { post_title, post_content, board_no, user_id } = req.body;
-    console.log(board_no);
+
     const tmpValue = await processQuery(
       "SELECT `writer` FROM `post` WHERE post_no=? ",
       [id]
