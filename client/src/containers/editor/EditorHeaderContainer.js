@@ -71,7 +71,8 @@ class EditorHeaderContainer extends Component {
     } = this.props;
     console.log(board_no, typeof board_no);
     board_no = board_no * 1;
-    if (board_no === null) {
+    if (!board_no) {
+      console.log("THIS IS NULL");
       this.createNotification("warning")();
       return;
     }
