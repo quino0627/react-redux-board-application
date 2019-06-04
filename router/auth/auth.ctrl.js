@@ -15,8 +15,11 @@ async function processQuery(query, data) {
       const [rows2] = await conn.query(
         "SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE"
       );
+      const [rows5] = await conn.query("SET autocommit=0");
       const [rows3] = await conn.query("SELECT @@TX_ISOLATION");
       console.log(rows3);
+      const [rows4] = await conn.query("SELECT @@AUTOCOMMIT");
+      console.log(rows4);
       console.log("Transaction Started");
       const sql = conn.format(query, data);
       const [result] = await conn.query(sql);
