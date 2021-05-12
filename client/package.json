@@ -13,7 +13,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.6",
-    "codemirror": "^5.46.0",
+    "codemirror": "^5.58.2",
     "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
     "http-proxy-middleware": "^0.19.1",
